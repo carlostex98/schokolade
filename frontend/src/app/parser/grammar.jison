@@ -1,6 +1,5 @@
 %{
-    const {Err} = require('../err');
-    const {errores} = require('../Errores');
+    
 
 
 
@@ -124,7 +123,7 @@ string2  (\'[^"]*\')
 
 ([a-zA-Z_])[a-zA-Z0-9_ñÑ]*	return 'ID';
 <<EOF>>		                return 'EOF'
-.                       { errores.push(new Err(yylloc.first_line, yylloc.first_column, 'lexico', yytext+" no pertenece al lenguaje")); }
+.                       {  }
 
 /lex
 
@@ -169,7 +168,7 @@ instruction
     | statReturn       { $$ = $1; }
     | varAsig          { $$ = $1; }
     | unarOpr          { $$ = $1; }
-    | error ';'        { errores.push(new Err(this._$.first_line, this._$.first_column, 'Sintactico', yytext)) ;  }
+    | error ';'        {  }
 
 ;
 
