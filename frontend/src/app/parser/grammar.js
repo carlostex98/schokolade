@@ -85,7 +85,7 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
 
-        return [formater($$[$0-1]), errores];
+        return formater($$[$0-1]);
     
 break;
 case 2:

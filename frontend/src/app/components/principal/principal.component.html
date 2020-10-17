@@ -21,22 +21,65 @@
         </a>
     </nav>
     <h1>Hello, world!</h1>
-
+    <br>
+    <br>
 
     <div class="container">
-        <form>
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Codigo aqui</label>
-                <textarea class="form-control" id="codigo" name="codigo" rows="20"></textarea>
+        <div *ngIf="trx; else elseBlock">
+            <form [formGroup]="codeForm">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Codigo aqui</label>
+                    <textarea formControlName="name" class="form-control" id="codigo" name="codigo"
+                        rows="20"></textarea>
+                </div>
+                <br>
+                <button class="btn btn-primary btn-lg" (click)="onSubmit()">Traducir codigo</button>
+            </form>
+        </div>
+        <ng-template #elseBlock>
+            <!-- mostrar lo compilado  -->
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button class="btn btn-primary btn-lg" (click)="onBack()">Regresar</button>
+                <button type="button" class="btn btn-secondary" (click)="onSwitch(0)" >Desanidado</button>
+                <button type="button" class="btn btn-secondary" (click)="onSwitch(1)" >C3D</button>
+                <button type="button" class="btn btn-secondary" (click)="onSwitch(2)" >Erroes</button>
+                <button type="button" class="btn btn-secondary" (click)="onSwitch(3)" >AST</button>
             </div>
+            
             <br>
-            <button class="btn btn-primary btn-lg" type="submit">Traducir codigo</button> 
-        </form>
-        
+            <br>
+
+            <ng-template [ngIf]="amn[0]">
+                <div>
+                    <textarea class="form-control" id="codigo" name="codigo"
+                        rows="20">{{codigo}}</textarea>
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="amn[1]">
+                <div>
+                    Content to render when condition is true 1.
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="amn[2]">
+                <div>
+                    Content to render when condition is true 2.
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="amn[3]">
+                <div>
+                    Content to render when condition is true 3.
+                </div>
+            </ng-template>
+
+        </ng-template>
+
     </div>
 
 
-    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 

@@ -141,7 +141,7 @@ string2  (\'[^"]*\')
 
 Startup
     : Instructions EOF{
-        return [formater($1), errores];
+        return formater($1);
     }
 ;
 
