@@ -1,0 +1,1 @@
+const {If} = require('../Compiler/Instruction/Control/If');

@@ -8,7 +8,7 @@
     let aux3 = 0;
     function nuevoNodo(contenido){
         nx++;
-        var tt = "nodo"+nx.toString()+'[ label="'+contenido+ '"]; ' ;
+        var tt = "nodo"+nx.toString()+'[ label=\\"'+contenido+ '\\"]; ' ;
         nodos.push(tt);
         return nx;
     }
