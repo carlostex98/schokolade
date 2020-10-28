@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { graphviz } from 'd3-graphviz';
 import { wasmFolder } from "@hpcc-js/wasm";
-
+import { manager } from '../../traducer/final/nanager';
 
 
 
@@ -28,7 +28,8 @@ export class PrincipalComponent implements OnInit {
 
   public parser = require('../../parser/grammar.js').parser;
   public gst = require('../../parser/ast.js').parser;
-  public pst = require('../../parser/traducer.js').parser;
+  public c3d = new manager();
+  
 
   ngOnInit(): void {
   }
@@ -41,6 +42,7 @@ export class PrincipalComponent implements OnInit {
     //console.log(b);
     this.traduce(this.codeForm.value.name);
     this.trx = false;
+    
 
   }
 
@@ -66,7 +68,7 @@ export class PrincipalComponent implements OnInit {
   }
 
   public traduce(cod) {
-    
+    this.c3d.analizar(cod);
 
   }
 

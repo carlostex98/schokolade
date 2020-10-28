@@ -1,7 +1,7 @@
 import { Instruction } from "../Abstract/Instruction";
 import { Expression } from "../Abstract/Expression";
 import { Environment } from "../Symbol/Environment";
-import {cons} from "../app"
+import * as generator from "../final/generator";
 
 export class Print extends Instruction{
 
@@ -13,7 +13,9 @@ export class Print extends Instruction{
         
         const v = this.value.execute(envx);
         if(v!=undefined){
-            cons.push(v.value);
+            //cons.push(v.value);
+            let  s = `printf(${v.value})`;
+            generator.agregarLinea(s);
         }
         //hacemos un push de lo que se mostrara en consoleax
     }

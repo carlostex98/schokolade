@@ -1,23 +1,22 @@
 %{
-    const {Arithmetic, ArithmeticOption} = require('../Expression/Arithmetic');
-    const {Relational, RelationalOption} = require('../Expression/Relational');
-    const {Access} = require('../Expression/Access');
-    const {Literal} = require('../Expression/Literal');
-    const {If} = require('../Instruction/If');
-    const {Print} = require('../Instruction/Print');
-    const {Statement} = require('../Instruction/Statement');
-    const {While} = require('../Instruction/While');
-    const {Dowhile} = require('../Instruction/Dowhile');
-    const {Declaration} = require('../Instruction/Declaration');
-    const {Break} = require('../Instruction/Break');
-    const {Continue} = require('../Instruction/Continue');
-    const {Call} = require('../Instruction/Call');
-    const {Function} = require('../Instruction/Function');
-    const {Return} = require('../Instruction/Return');
-    const {For} = require('../Instruction/For');
-    const {Cases} =  require("../Instruction/Cases");
-    const {Switch} =  require("../Instruction/Switch");
-    const {Tsymbol} =  require("../Instruction/Tsymbol");
+    const {Arithmetic, ArithmeticOption} = require('../traducer/Expression/Arithmetic');
+    const {Relational, RelationalOption} = require('../traducer/Expression/Relational');
+    const {Access} = require('../traducer/Expression/Access');
+    const {Literal} = require('../traducer/Expression/Literal');
+    const {If} = require('../traducer/Instruction/If');
+    const {Print} = require('../traducer/Instruction/Print');
+    const {Statement} = require('../traducer/Instruction/Statement');
+    const {While} = require('../traducer/Instruction/While');
+    const {Dowhile} = require('../traducer/Instruction/Dowhile');
+    const {Declaration} = require('../traducer/Instruction/Declaration');
+    const {Break} = require('../traducer/Instruction/Break');
+    const {Continue} = require('../traducer/Instruction/Continue');
+    const {Call} = require('../traducer/Instruction/Call');
+    const {Function} = require('../traducer/Instruction/Function');
+    const {Return} = require('../traducer/Instruction/Return');
+    const {For} = require('../traducer/Instruction/For');
+    const {Cases} =  require("../traducer/Instruction/Cases");
+    const {Switch} =  require("../traducer/Instruction/Switch");
     let tv = null;
     let t1 = null;
     let t2 = null;
@@ -168,7 +167,7 @@ varAsig
 ;
 
 statGraph
-    : GP_TS '(' ')' ';' { $$ = new Tsymbol(@1.first_line, @1.first_column); }
+    : GP_TS '(' ')' ';' { $$ = null; }
 ;
 statIf
     : IF '(' genExpr ')' subStat moreIf 
