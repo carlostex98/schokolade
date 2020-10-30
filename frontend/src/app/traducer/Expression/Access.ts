@@ -2,6 +2,7 @@ import { Expression } from "../Abstract/Expression";
 import { Environment } from "../Symbol/Environment";
 import { Retorno } from "../Abstract/ret_v";
 import { type } from "os";
+import * as generator from "../final/generator";
 
 export class Access extends Expression{
 
@@ -11,9 +12,24 @@ export class Access extends Expression{
 
     public execute(environment: Environment): Retorno {
         const value = environment.getVar(this.id);
-        if(value == null)
+        let ps = environment.getPx(this.id);
+        if(value == null){
+
             throw new Error("Variable inexistente");
-        return {value : value.valor, type : value.type};
+            
+        }
+        //solicitamos la var del heap
+        
+
+        let n = generator.solicitarTemporal();
+        let nx = generator.solicitarTemporal();
+        let dif = ps - generator.getPx();
+        let o = `t${nx} = p + ${dif}`;
+        let t = `t${n} = stack[t${nx}]`;
+        generator.agregarLinea(o);
+        generator.agregarLinea(t);
+            
+        return {value : `t${n}`, type : value.type};
     }
 }
 

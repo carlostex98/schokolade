@@ -106,14 +106,11 @@ break;
 case 24:
  this.$ = new Return(null, _$[$0-1].first_line, _$[$0-1].first_column);
 break;
-case 25:
-this.$ = new Declaration($$[$0-3], $$[$0-1], _$[$0-4].first_line, _$[$0-4].first_column,1);
-break;
-case 26:
-this.$ = new Declaration($$[$0-3], $$[$0-1], _$[$0-4].first_line, _$[$0-4].first_column,2);
+case 25: case 26:
+this.$ = new Declaration($$[$0-3], $$[$0-1], _$[$0-4].first_line, _$[$0-4].first_column,0);
 break;
 case 27:
-this.$ = new Declaration($$[$0-1], $$[$01], _$[$0-2].first_line, _$[$0-2].first_column,1);
+this.$ = null;
 break;
 case 28:
  this.$ = new Statement($$[$0-1], _$[$0-2].first_line, _$[$0-2].first_column); 

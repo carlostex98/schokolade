@@ -17,7 +17,7 @@ export class Call extends Instruction {
             for (let i = 0; i < this.expresiones.length; i++) {
                 //se guaradan la variables de la funcion en el enviroment para poder usarlas
                 const v = this.expresiones[i].execute(env);
-                newEnv.guardar(func.parametros[i], v.value, v.type, this.line, this.column, 1);
+                newEnv.guardar(func.parametros[i], v.value, v.type, 1);
             }
             //area return, si tiene el statement de return
             var f=func.statment.execute(newEnv);

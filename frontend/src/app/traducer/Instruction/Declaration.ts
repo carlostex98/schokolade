@@ -2,6 +2,7 @@ import { Instruction } from "../Abstract/Instruction";
 import { Environment } from "../Symbol/Environment";
 import { Expression } from "../Abstract/Expression";
 import { env } from "process";
+import * as generator from "../final/generator";
 
 export class Declaration extends Instruction{
 
@@ -18,9 +19,18 @@ export class Declaration extends Instruction{
     }
 
     public execute(env: Environment) {
-        const val = this.value.execute(env);
-        env.guardar(this.id, val.value, val.type, this.line, this.column, this.tpx);
-        //guardamos la variable en el enviroment actual
+
+        let t = generator.nuevaVar();//pos en el stack
+        let n = generator.solicitarTemporal();
+        let t1 = `t${n} = p + ${t}`;//preparamos la asignacion
+        generator.agregarLinea(t1);
+        const val = this.value.execute(env); //ejecuta la var
+
+        let t2 = `stack[t${t}] = ${val.value}`;
+        generator.agregarLinea(t2);
+
+        env.guardar(this.id, val.value, val.type, t);
+        //guardamos la variable en el enviroment actual y su pos en el stack :p
     }
 
 }

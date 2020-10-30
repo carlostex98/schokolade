@@ -7,46 +7,35 @@ import { Err } from "../err";
 export class Environment {
 
     private variables: Map<string, Symbol>;//variables
-    private vary: Map<string, number>;//pos y var
-    private varx: Map<string, number>; //pos x var
     public funciones: Map<string, Function>; //unciones
-    public tpx: Map<string, number>; //tipo func
+    private pos: Map<string, number>; //posicion en el heap
 
     constructor(public anterior: Environment | null) {
         this.variables = new Map();
         this.funciones = new Map();
-        this.vary = new Map();
-        this.varx = new Map();
-        this.tpx = new Map();
+        this.pos = new Map();
+
     }
 
-    public guardar(id: string, valor: any, type: Type, linea: number, columna: number, tpx: number) {
+    public guardar(id: string, valor: any, type: Type, hh: number) {
         //guarda las variaqbles
         let env: Environment | null = this;
         while (env != null) {
             if (env.variables.has(id)) {
                 //validamos
-                
-                    //variable
-                    env.variables.set(id, new Symbol(valor, id, type));
-                    env.vary.set(id, linea);
-                    env.varx.set(id, columna);
-                    env.tpx.set(id, tpx);
-                
+
+                //variable
+                env.variables.set(id, new Symbol(valor, id, type));
+                env.pos.set(id, hh);
+
                 return;
             }
             env = env.anterior;
             //recorremos los demas envs
         }
 
-        
-            this.variables.set(id, new Symbol(valor, id, type));
-            this.vary.set(id, linea);
-            this.varx.set(id, columna);
-            this.tpx.set(id, tpx);
-        
-
-
+        this.variables.set(id, new Symbol(valor, id, type));
+        this.pos.set(id, hh);
 
     }
 
@@ -67,6 +56,17 @@ export class Environment {
         while (envior != null) {
             if (envior.variables.has(id)) {
                 return envior.variables.get(id);
+            }
+            envior = envior.anterior;
+        }
+        return null;//en acces tira error si no existe
+    }
+
+    public getPx(id: string): number | undefined | null {
+        let envior: Environment | null = this;
+        while (envior != null) {
+            if (envior.variables.has(id)) {
+                return envior.pos.get(id);
             }
             envior = envior.anterior;
         }
@@ -100,36 +100,7 @@ export class Environment {
     --------- imagen tabla de simbolos
     */
 
-    //retorna la tabla de simbolos
-    public print_symbol() {
 
-        let general = [];
-        let env: Environment | null = this;
-        while (env != null) {
-            let a = [];
-            let b = [];
-            let c = [];
-            let d = [];
-            for (let entry of env.variables.entries()) {
-                a.push(entry[0]);
-                b.push(entry[1].valor);
-            }
-
-            for (let entry of env.varx.entries()) {
-                c.push(entry[1]);
-            }
-
-            for (let entry of env.vary.entries()) {
-                d.push(entry[1]);
-            }
-
-            for (let i = 0; i < a.length; i++) {
-                general.push([a[i], b[i], "Variable", c[i], d[i]]);
-            }
-            env = env.anterior;
-        }
-        return general;
-    }
 
     //retorna las funciones
     public print_func() {
@@ -149,30 +120,30 @@ export class Environment {
 }
 
 /**
- * 
+ *
  * Este codigo NO participo en plagio con los otros compañeros del curso
- * 
- * pongo esto porque quede traumado con algo asi en el pasado :(    
- * 
+ *
+ * pongo esto porque quede traumado con algo asi en el pasado :(
+ *
  */
 /**
- * 
+ *
  * Este codigo NO participo en plagio con los otros compañeros del curso
- * 
- * pongo esto porque quede traumado con algo asi en el pasado :(    
- * 
+ *
+ * pongo esto porque quede traumado con algo asi en el pasado :(
+ *
  */
 /**
- * 
+ *
  * Este codigo NO participo en plagio con los otros compañeros del curso
- * 
- * pongo esto porque quede traumado con algo asi en el pasado :(    
- * 
+ *
+ * pongo esto porque quede traumado con algo asi en el pasado :(
+ *
  */
 /**
- * 
+ *
  * Este codigo NO participo en plagio con los otros compañeros del curso
- * 
- * pongo esto porque quede traumado con algo asi en el pasado :(    
- * 
+ *
+ * pongo esto porque quede traumado con algo asi en el pasado :(
+ *
  */

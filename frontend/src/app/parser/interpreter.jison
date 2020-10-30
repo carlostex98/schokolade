@@ -152,9 +152,9 @@ statReturn
 ;
 
 varDefinition
-    : LET ID '=' genExpr ';'    {$$ = new Declaration($2, $4, @1.first_line, @1.first_column,1);}
-    | CONST ID '=' genExpr ';'  {$$ = new Declaration($2, $4, @1.first_line, @1.first_column,2);}
-    | LET ID ';'                {$$ = new Declaration($2, $4, @1.first_line, @1.first_column,1);}
+    : LET ID '=' genExpr ';'    {$$ = new Declaration($2, $4, @1.first_line, @1.first_column,0);}
+    | CONST ID '=' genExpr ';'  {$$ = new Declaration($2, $4, @1.first_line, @1.first_column,0);}
+    | LET ID ';'                {$$ = null;}
 ;
 
 subStat

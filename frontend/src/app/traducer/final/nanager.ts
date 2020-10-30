@@ -18,6 +18,7 @@ export class manager {
 
     analizar(lineas): void {
         //llamamos al parser y parseamos
+        generator.limpiar();
         let pst = require('../../parser/interpreter.js').parser;
         const ast = pst.parse(lineas);
         const env = new Environment(null);
@@ -44,15 +45,12 @@ export class manager {
             }
         }
 
-        console.log(generator.devolverCodigo());
+        //console.log(generator.devolverCodigo());
 
     }
 
-    
-
-
-
-
-
+    comCode():string{
+        return generator.devolverCodigo();
+    }
 
 }

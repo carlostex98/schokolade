@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { graphviz } from 'd3-graphviz';
 import { wasmFolder } from "@hpcc-js/wasm";
 import { manager } from '../../traducer/final/nanager';
-
+import * as generator from "../../traducer/final/nanager";
 
 
 @Component({
@@ -23,6 +23,7 @@ export class PrincipalComponent implements OnInit {
   });
 
   codigo: string = '';
+  cd: string = '';
   viz: string = '';
   sv: any;
 
@@ -69,7 +70,7 @@ export class PrincipalComponent implements OnInit {
 
   public traduce(cod) {
     this.c3d.analizar(cod);
-
+    this.cd = this.c3d.comCode();
   }
 
 

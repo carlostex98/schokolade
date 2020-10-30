@@ -3,6 +3,7 @@ import { Retorno, Type } from "../Abstract/ret_v";
 import { Environment } from "../Symbol/Environment";
 import { env } from "process";
 import { Err } from "../err";
+import * as generator from "../final/generator";
 
 export enum ArithmeticOption {
     PLUS,
@@ -26,23 +27,24 @@ export class Arithmetic extends Expression {
         const tipoDominante = this.tipoDominante(leftValue.type, rightValue.type);
 
         if (this.type == ArithmeticOption.PLUS) {
-            if (tipoDominante == Type.STRING) {
-                //console.log(leftValue.value.toString());
-                result = { value: (leftValue.value.toString().concat(rightValue.value.toString())), type: Type.STRING };
 
-            } else if (tipoDominante == Type.NUMBER) {
-                result = { value: (leftValue.value + rightValue.value), type: Type.NUMBER };
-            } else {
-                throw new Err(this.line, this.column, 'Semantico', 'No se puede operar: ' + leftValue.type + ' _ ' + rightValue.type);
-            }
+            let temp = generator.solicitarTemporal();
+            let f = `t${temp} = ${leftValue.value} + ${rightValue.value}`
+            generator.agregarLinea(f);
+            result = { value: `t${temp}`, type: Type.NUMBER };
+
         }
         else if (this.type == ArithmeticOption.MINUS) {
-            if (tipoDominante == Type.STRING)
-                throw new Err(this.line, this.column, 'Semantico', 'No se puede operar: ' + leftValue.type + ' _ ' + rightValue.type);
-            result = { value: (leftValue.value - rightValue.value), type: Type.BOOLEAN };
+            let temp = generator.solicitarTemporal();
+            let f = `t${temp} = ${leftValue.value} - ${rightValue.value}`
+            generator.agregarLinea(f);
+            result = { value: `t${temp}`, type: Type.NUMBER };
         }
         else if (this.type == ArithmeticOption.BY) {
-            result = { value: (leftValue.value * rightValue.value), type: Type.NUMBER };
+            let temp = generator.solicitarTemporal();
+            let f = `t${temp} = ${leftValue.value} * ${rightValue.value}`
+            generator.agregarLinea(f);
+            result = { value: `t${temp}`, type: Type.NUMBER };
         }
         else if (this.type == ArithmeticOption.MOD) {
             result = { value: (leftValue.value % rightValue.value), type: Type.NUMBER };
@@ -61,9 +63,9 @@ export class Arithmetic extends Expression {
 }
 
 /**
- * 
+ *
  * Este codigo NO participo en plagio con los otros compañeros del curso
- * 
- * pongo esto porque quede traumado con algo asi en el pasado :(    
- * 
+ *
+ * pongo esto porque quede traumado con algo asi en el pasado :(
+ *
  */
