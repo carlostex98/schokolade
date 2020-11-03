@@ -8,6 +8,13 @@ export class Literal extends Expression{
     }
 
     public execute() : Retorno{
+
+        if(this.value == true){
+            return {value : Number(1), type : Type.NUMBER};
+        } else if(this.value == false){
+            return {value : Number(0), type : Type.NUMBER};
+        }
+
         if(this.type < 1){
             return {value : Number(this.value), type : Type.NUMBER};
         } else if(this.type == 1){
