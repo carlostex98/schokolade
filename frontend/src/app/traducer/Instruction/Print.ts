@@ -16,9 +16,9 @@ export class Print extends Instruction{
         const v = this.value.execute(envx);
         if(v!=undefined){
             //cons.push(v.value);
-            let  s = `printf(${v.value})`;
+            let  s = `printf(${v.value});`;
             generator.agregarLinea(s);
-            console.log(v.type);
+            //console.log(v.type);
         }
         //hacemos un push de lo que se mostrara en consoleax
     }

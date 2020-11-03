@@ -12,7 +12,7 @@ export abstract class Expression {
         this.column = column;
     }
 
-    public abstract execute(environment: Environment) : Retorno;
+    public abstract execute(environment: Environment) : Retorno ;
 
     public tipoDominante(t1 : Type, t2 : Type) : Type{//se calcula el tipo dominate
         const calcType = tipos[t1][t2];

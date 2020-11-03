@@ -2,6 +2,7 @@
     const {Arithmetic, ArithmeticOption} = require('../traducer/Expression/Arithmetic');
     const {Relational, RelationalOption} = require('../traducer/Expression/Relational');
     const {Access} = require('../traducer/Expression/Access');
+    const {Define} = require('../traducer/Instruction/Define');
     const {Literal} = require('../traducer/Expression/Literal');
     const {If} = require('../traducer/Instruction/If');
     const {Print} = require('../traducer/Instruction/Print');
@@ -163,7 +164,7 @@ subStat
 
 
 varAsig
-    : ID '=' genExpr ';' {$$ = new Declaration($1, $3, @1.first_line, @1.first_column);}
+    : ID '=' genExpr ';' {$$ = new Define ($1, @1.first_line, @1.first_column, $3);}
 ;
 
 statGraph

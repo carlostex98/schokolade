@@ -1,16 +1,19 @@
 import { Expression } from "../Abstract/Expression";
+import { Instruction } from "../Abstract/Instruction";
 import { Environment } from "../Symbol/Environment";
-import { Retorno, Type } from "../Abstract/ret_v";
+import { Retorno } from "../Abstract/ret_v";
 import { type } from "os";
 import * as generator from "../final/generator";
 
-export class Access extends Expression{
+export class Define extends Instruction{
 
-    constructor(private id: string, line : number, column: number){
+    private value: Expression;
+    constructor(private id: string, line : number, column: number, value:Expression){
         super(line, column);
+        this.value = value;
     }
 
-    public execute(environment: Environment): Retorno {
+    public execute(environment: Environment) {
         const value = environment.getVar(this.id);
         let ps = environment.getPx(this.id);
         if(value == null){
@@ -20,23 +23,18 @@ export class Access extends Expression{
         }
         //solicitamos la var del heap
         
-
+        let val = this.value.execute(environment);
         let n = generator.solicitarTemporal();
         let nx = generator.solicitarTemporal();
         let dif = ps - generator.getPx();
-        let o = `t${nx} = p + ${dif};`;
-        let t = `t${n} = stack[t${nx}];`;
+        let o = `t${nx} = p + ${dif}`;
+        let t = `t${n} = stack[t${nx}]`;
+        let  f = `t${n} = ${val.value}`;
+        let q = `stack[t${nx}] = t${n}`;
         generator.agregarLinea(o);
         generator.agregarLinea(t);
-            
-        return {value : `t${n}`, type : Type.TEMPORAL};
+        generator.agregarLinea(f);
+        generator.agregarLinea(q);
+
     }
 }
-
-/**
- * 
- * Este codigo NO participo en plagio con los otros compañeros del curso
- * 
- * pongo esto porque quede traumado con algo asi en el pasado :(    
- * 
- */

@@ -1,6 +1,7 @@
 import { Expression } from "../Abstract/Expression";
 import { Retorno, Type } from "../Abstract/ret_v";
 import { Environment } from "../Symbol/Environment";
+import * as generator from "../final/generator";
 
 export enum RelationalOption {
     EQUAL,
@@ -24,28 +25,118 @@ export class Relational extends Expression {
         const leftValue = this.left.execute(environment);
         const rightValue = this.right.execute(environment);
         if (this.type == RelationalOption.EQUAL) {
-            const result = leftValue.value == rightValue.value;
-            return { value: result, type: Type.BOOLEAN };
+            let gt1 = generator.solicitarGoto();//verdadero
+            let gt2 = generator.solicitarGoto();//falso
+            let s1 = generator.solicitarTemporal();//return
+            let a1 = `if(${leftValue.value} == ${rightValue.value}){\ngoto L${gt1};\n}`;
+            let a2 = `t${s1} = 0;`;
+            let a3 = `goto S${gt2};`;
+            let a4 = `L${gt1}:`;
+            let a5 = `t${s1} = 1;`;
+            let a6 = `S${gt2}:`;
+            generator.agregarLinea(a1);
+            generator.agregarLinea(a2);
+            generator.agregarLinea(a3);
+            generator.agregarLinea(a4);
+            generator.agregarLinea(a5);
+            generator.agregarLinea(a3);//salida fija
+            generator.agregarLinea(a6);
+            return { value: `t${s1}`, type: Type.TEMPORAL };
         }
         else if (this.type == RelationalOption.NOTEQUAL) {
-            const result = leftValue.value != rightValue.value;
-            return { value: result, type: Type.BOOLEAN };
+            let gt1 = generator.solicitarGoto();//verdadero
+            let gt2 = generator.solicitarGoto();//falso
+            let s1 = generator.solicitarTemporal();//return
+            let a1 = `if(${leftValue.value} != ${rightValue.value}){\ngoto L${gt1};\n}`;
+            let a2 = `t${s1} = 0;`;
+            let a3 = `goto S${gt2};`;
+            let a4 = `L${gt1}:`;
+            let a5 = `t${s1} = 1;`;
+            let a6 = `S${gt2}:`;
+            generator.agregarLinea(a1);
+            generator.agregarLinea(a2);
+            generator.agregarLinea(a3);
+            generator.agregarLinea(a4);
+            generator.agregarLinea(a5);
+            generator.agregarLinea(a3);//salida fija
+            generator.agregarLinea(a6);
+            return { value: `t${s1}`, type: Type.TEMPORAL };
         }
         else if (this.type == RelationalOption.LESS) {
-            const result = leftValue.value < rightValue.value;
-            return { value: result, type: Type.BOOLEAN };
+            let gt1 = generator.solicitarGoto();//verdadero
+            let gt2 = generator.solicitarGoto();//falso
+            let s1 = generator.solicitarTemporal();//return
+            let a1 = `if(${leftValue.value} < ${rightValue.value}){\ngoto L${gt1};\n}`;
+            let a2 = `t${s1} = 0;`;
+            let a3 = `goto S${gt2};`;
+            let a4 = `L${gt1}:`;
+            let a5 = `t${s1} = 1;`;
+            let a6 = `S${gt2}:`;
+            generator.agregarLinea(a1);
+            generator.agregarLinea(a2);
+            generator.agregarLinea(a3);
+            generator.agregarLinea(a4);
+            generator.agregarLinea(a5);
+            generator.agregarLinea(a3);//salida fija
+            generator.agregarLinea(a6);
+            return { value: `t${s1}`, type: Type.TEMPORAL };
         }
         else if (this.type == RelationalOption.LESSOREQUAL) {
-            const result = leftValue.value <= rightValue.value;
-            return { value: result, type: Type.BOOLEAN };
+            let gt1 = generator.solicitarGoto();//verdadero
+            let gt2 = generator.solicitarGoto();//falso
+            let s1 = generator.solicitarTemporal();//return
+            let a1 = `if(${leftValue.value} <= ${rightValue.value}){\ngoto L${gt1};\n}`;
+            let a2 = `t${s1} = 0;`;
+            let a3 = `goto S${gt2};`;
+            let a4 = `L${gt1}:`;
+            let a5 = `t${s1} = 1;`;
+            let a6 = `S${gt2}:`;
+            generator.agregarLinea(a1);
+            generator.agregarLinea(a2);
+            generator.agregarLinea(a3);
+            generator.agregarLinea(a4);
+            generator.agregarLinea(a5);
+            generator.agregarLinea(a3);//salida fija
+            generator.agregarLinea(a6);
+            return { value: `t${s1}`, type: Type.TEMPORAL };
         }
         else if (this.type == RelationalOption.GREATER) {
-            const result = leftValue.value > rightValue.value;
-            return { value: result, type: Type.BOOLEAN };
+            let gt1 = generator.solicitarGoto();//verdadero
+            let gt2 = generator.solicitarGoto();//falso
+            let s1 = generator.solicitarTemporal();//return
+            let a1 = `if(${leftValue.value} > ${rightValue.value}){\ngoto L${gt1};\n}`;
+            let a2 = `t${s1} = 0;`;
+            let a3 = `goto S${gt2};`;
+            let a4 = `L${gt1}:`;
+            let a5 = `t${s1} = 1;`;
+            let a6 = `S${gt2}:`;
+            generator.agregarLinea(a1);
+            generator.agregarLinea(a2);
+            generator.agregarLinea(a3);
+            generator.agregarLinea(a4);
+            generator.agregarLinea(a5);
+            generator.agregarLinea(a3);//salida fija
+            generator.agregarLinea(a6);
+            return { value: `t${s1}`, type: Type.TEMPORAL };
         }
         else if (this.type == RelationalOption.GREATEROREQUAL) {
-            const result = leftValue.value >= rightValue.value;
-            return { value: result, type: Type.BOOLEAN };
+            let gt1 = generator.solicitarGoto();//verdadero
+            let gt2 = generator.solicitarGoto();//falso
+            let s1 = generator.solicitarTemporal();//return
+            let a1 = `if(${leftValue.value} >= ${rightValue.value}){\ngoto L${gt1};\n}`;
+            let a2 = `t${s1} = 0;`;
+            let a3 = `goto S${gt2};`;
+            let a4 = `L${gt1}:`;
+            let a5 = `t${s1} = 1;`;
+            let a6 = `S${gt2}:`;
+            generator.agregarLinea(a1);
+            generator.agregarLinea(a2);
+            generator.agregarLinea(a3);
+            generator.agregarLinea(a4);
+            generator.agregarLinea(a5);
+            generator.agregarLinea(a3);//salida fija
+            generator.agregarLinea(a6);
+            return { value: `t${s1}`, type: Type.TEMPORAL };
         }
         else if (this.type == RelationalOption.AND) {
             const result = leftValue.value && rightValue.value;

@@ -116,7 +116,7 @@ case 28:
  this.$ = new Statement($$[$0-1], _$[$0-2].first_line, _$[$0-2].first_column); 
 break;
 case 29:
-this.$ = new Declaration($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column);
+this.$ = new Define ($$[$0-3], _$[$0-3].first_line, _$[$0-3].first_column, $$[$0-1]);
 break;
 case 30: case 38:
  this.$ = null; 
@@ -564,6 +564,7 @@ _handle_error:
     const {Arithmetic, ArithmeticOption} = require('../traducer/Expression/Arithmetic');
     const {Relational, RelationalOption} = require('../traducer/Expression/Relational');
     const {Access} = require('../traducer/Expression/Access');
+    const {Define} = require('../traducer/Instruction/Define');
     const {Literal} = require('../traducer/Expression/Literal');
     const {If} = require('../traducer/Instruction/If');
     const {Print} = require('../traducer/Instruction/Print');
