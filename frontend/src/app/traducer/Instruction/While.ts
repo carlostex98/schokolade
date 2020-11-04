@@ -2,6 +2,7 @@ import { Instruction } from "../Abstract/Instruction";
 import { Expression } from "../Abstract/Expression";
 import { Environment } from "../Symbol/Environment";
 import { Type } from "../Abstract/ret_v";
+import * as generator from "../final/generator";
 
 export class While extends Instruction{
 
@@ -17,23 +18,28 @@ export class While extends Instruction{
      * 
      */
     public execute(env : Environment) {
+        let a1 = generator.solicitarGoto();//goto de condicion
+        generator.agregarLinea(`goto L${a1};`);
+        generator.agregarLinea(`L${a1}:`);
         let condition = this.condition.execute(env);
-        if(condition.type != Type.BOOLEAN){
-            throw {error: "La expresion no es booleana", linea: this.line, columna : this.column};
+        let a2 = generator.solicitarGoto();//goto de instruccion
+        let cond = `if(${condition.value} >= 1){\ngoto I${a2};\n}`;
+        let a3 = generator.solicitarGoto();
+        let f1 = `goto S${a3};`;
+        let ins = `I${a2}:`;
+        generator.agregarLinea(cond);
+        generator.agregarLinea(f1);
+        generator.agregarLinea(ins);
+        const element = this.code.execute(env);
+        if(element != null || element != undefined){
+            if(element.type == 'Break')
+                generator.agregarLinea(f1);
+            else if(element.type == 'Continue')
+                generator.agregarLinea(`goto L${a1};`);
         }
-        while(condition.value == true){
-            const element = this.code.execute(env);
-            if(element != null || element != undefined){
-                if(element.type == 'Break')
-                    break;
-                else if(element.type == 'Continue')
-                    continue;
-            }
-            condition = this.condition.execute(env);
-            if(condition.type != Type.BOOLEAN){
-                throw {error: "La expresion no es booleana", linea: this.line, columna : this.column};
-            }
-        }
+        generator.agregarLinea(`goto L${a1};`);
+        generator.agregarLinea(`S${a3}:`);
+
     }
 }
 
